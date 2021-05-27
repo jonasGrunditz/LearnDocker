@@ -1,2 +1,18 @@
-FROM python:3.8-alpine
-LABEL maintainer=jonasjonas1@hotmail.com
+FROM alpine
+
+LABEL maintainer="nigelpoulton@hotmail.com"
+
+# Install Node and NPM
+RUN apk add --update nodejs nodejs-npm
+
+# Copy app to /src
+COPY . /src
+
+WORKDIR /src
+
+# Install dependencies
+RUN  npm install
+
+EXPOSE 8080
+
+ENTRYPOINT ["node", "./app.js"]
